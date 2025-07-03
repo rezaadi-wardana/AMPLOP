@@ -1,7 +1,7 @@
 import React from 'react';
-import ProductCard from './compon/ProductCard';
-import Navbar from './compon/Navbar'
-import Footer from './compon/Footer';
+import ProductCard from './Compon_FE/ProductCard';
+import Navbar from './Compon_FE/Navbar'
+import Footer from './Compon_FE/Footer';
 
 const ProdukPage = () => {
     const categories = ["Budaya", "Islami", "Mewah", "Pastel", "Elegan"];

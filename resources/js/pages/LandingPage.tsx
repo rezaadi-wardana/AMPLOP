@@ -2,8 +2,8 @@
 import { motion } from "framer-motion";
 import { Link } from "@inertiajs/react";
 import { useEffect, useState } from "react";
-import Navbar from './compon/Navbar'
-import Footer from "./compon/Footer";
+import Navbar from './Compon_FE/Navbar'
+import Footer from "./Compon_FE/Footer";
 
 
 export default function Landing() {

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, usePage, useForm } from '@inertiajs/react';
-import { BellDot } from 'lucide-react';
+import { BellDot, CircleAlert } from 'lucide-react';
 import {
     Table,
     TableBody,
@@ -17,45 +17,46 @@ import {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Category',
-        href: '/category',
+        title: 'Hasil sisa',
+        href: '/hasil',
     },
 
 ];
 
-interface Category {
+interface Hasil_sisa {
     id: number;
-    category_name: string;
-    category_desc: string;
+    jumlah_neptu: number;
+    nama_makna: string;
+    arti_makna: string;
 }
 interface PageProps {
     flash: {
         message?: string;
     };
-    category: Category[];
+    hasil_sisa: Hasil_sisa[];
 }
 
 
 
 export default function Index() {
 
-    const { category, flash } = usePage().props as PageProps;
+    const { hasil_sisa, flash } = usePage().props as PageProps;
 
     const { processing, delete: destroy } = useForm();
 
-    const handleDelete = (id: number, category_name: string) => {
-        if (confirm(`Do you want to delete - ${id} ${category_name}?`)) {
+    const handleDelete = (id: number, nama_makna: string) => {
+        if (confirm(`Do you want to delete - ${id} ${nama_makna}?`)) {
             // TODO: Add delete logic here
-            destroy(route('category.destroy', id));
+            destroy(route('hasil_sisa.destroy', id));
         }
     }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Create New Category" />
+            <Head title="Create New Hasil sisa" />
             <div className="m-4">
-                <Link href="/category/create">
-                    <Button>Create Category</Button>
+                <Link href="/hasil_sisa/create">
+                    <Button>Create Data</Button>
                 </Link>
 
             </div>
@@ -72,38 +73,50 @@ export default function Index() {
                 </div>
             )}
 
-
-            {category.length > 0 && (
-                <div className='m-4'>
+            <div className='m-4'>
+                {hasil_sisa.length > 0 ? (
                     <Table>
                         <TableCaption>A list of your recent invoices.</TableCaption>
                         <TableHeader>
                             <TableRow>
                                 <TableHead className="w-[100px]">ID</TableHead>
+                                <TableHead>sisa Neptu</TableHead>
                                 <TableHead>Name</TableHead>
                                 <TableHead>Description</TableHead>
                                 <TableHead className="text-center">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {category.map((category) => (
+                            {hasil_sisa.map((hasil) => (
 
                                 <TableRow>
-                                    <TableCell className="font-medium">{category.id}</TableCell>
-                                    <TableCell>{category.category_name}</TableCell>
-                                    <TableCell>{category.category_desc}</TableCell>
+                                    <TableCell className="font-medium">{hasil.id}</TableCell>
+                                    <TableCell>{hasil.jumlah_neptu}</TableCell>
+                                    <TableCell>{hasil.nama_makna}</TableCell>
+                                    <TableCell className='max-w-sm whitespace-pre-line break-words'>{hasil.arti_makna}</TableCell>
                                     <TableCell className="text-center space-x-2 ">
-                                        <Link href={route('category.edit', category.id)} prefetch>
+                                        <Link href={route('hasil_sisa.edit', hasil.id)} prefetch>
                                             <Button disabled={processing} className=''>Edit</Button>
                                         </Link>
-                                        <Button disabled={processing} onClick={() => handleDelete(category.id, category.category_name)} className=' bg-red-500 hover:bg-red-600 text-white'>Delete</Button>
+                                        <Button disabled={processing} onClick={() => handleDelete(hasil.id, hasil.nama_makna)} className=' bg-red-500 hover:bg-red-600 text-white'>Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
-                </div>
-            )}
+                ) : (
+                    // <div className="m-4 p-4 border border-dashed border-gray-300 rounded text-center text-gray-500">
+                    //     Tidak ada di database.
+                    // </div>
+                    <Alert variant="default">
+                        <CircleAlert />
+                        <AlertTitle>Data Kosong</AlertTitle>
+                        <AlertDescription>
+                            <p>Tidak ada data yang diambil dari database.</p>
+                        </AlertDescription>
+                    </Alert>
+                )}
+            </div>
         </AppLayout>
     );
 }

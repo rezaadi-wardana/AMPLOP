@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HasilJumlahController;
+use App\Http\Controllers\HasilSisaController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,19 +28,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('product/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
     Route::put('product/{product}', [ProductController::class, 'update'])->name('product.update');
     Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+    Route::get('hasil_jumlah', [HasilJumlahController::class, 'index'])->name('hasil_jumlah.index');
+    Route::post('hasil_jumlah', [HasilJumlahController::class, 'store'])->name('hasil_jumlah.store');
+    Route::get('hasil_jumlah/create', [HasilJumlahController::class, 'create'])->name('hasil_jumlah.create');
+    Route::get('hasil_jumlah/{hasil_jumlah}/edit', [HasilJumlahController::class, 'edit'])->name('hasil_jumlah.edit');
+    Route::put('hasil_jumlah/{hasil_jumlah}', [HasilJumlahController::class, 'update'])->name('hasil_jumlah.update');
+    Route::delete('hasil_jumlah/{hasil_jumlah}', [HasilJumlahController::class, 'destroy'])->name('hasil_jumlah.destroy');
+
+    Route::get('hasil_sisa', [HasilSisaController::class, 'index'])->name('hasil_sisa.index');
+    Route::post('hasil_sisa', [HasilSisaController::class, 'store'])->name('hasil_sisa.store');
+    Route::get('hasil_sisa/create', [HasilSisaController::class, 'create'])->name('hasil_sisa.create');
+    Route::get('hasil_sisa/{hasil_sisa}/edit', [HasilSisaController::class, 'edit'])->name('hasil_sisa.edit');
+    Route::put('hasil_sisa/{hasil_sisa}', [HasilSisaController::class, 'update'])->name('hasil_sisa.update');
+    Route::delete('hasil_sisa/{hasil_sisa}', [HasilSisaController::class, 'destroy'])->name('hasil_sisa.destroy');
 });
 
-// Route::get('/', function () {
-//     return Inertia::render('LandingPage');
-// });
-
+Route::get('/beranda', function () {
+    return Inertia::render('LandingPage');
+});
 
 Route::get('/produk', function () {
     return Inertia::render('ProdukPage');
 });
 
-
 Route::get('/undangan', function () {
+    return Inertia::render('UndanganList');
+});
+
+Route::get('/cekjodoh', function () {
     return Inertia::render('UndanganList');
 });
 
