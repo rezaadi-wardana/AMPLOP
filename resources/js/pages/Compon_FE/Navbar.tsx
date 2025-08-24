@@ -63,17 +63,18 @@ export default function Navbar() {
                     <ul className="hidden md:flex md:gap-6 text-md font-semibold ">
                         <li><Link href="/">Home</Link></li>
                         <li><Link href="/produk">Produk</Link></li>
-                        <li><Link href="/about">About Us</Link></li>
+                        <li><Link href="/cekjodoh">Cek Jodoh</Link></li>
+                        {/* <li><Link href="/about">About Us</Link></li>
                         <li><Link href="/contact">Contact Us</Link></li>
-                        <li><Link href="/blog">Blog</Link></li>
+                        <li><Link href="/blog">Blog</Link></li> */}
                     </ul>
 
                     {/* Icons */}
-                    <div className="hidden md:flex gap-4">
+                    {/* <div className="hidden md:flex gap-4">
                         <img className="h-8 mx-2" src="/img/search.png" alt="Search" />
                         <img className="h-8 mx-2" src="/img/login.png" alt="Login" />
                         <img className="h-8 mx-2" src="/img/cart.png" alt="Cart" />
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Mobile Menu with animation */}

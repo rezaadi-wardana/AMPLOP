@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CekJodohController;
 use App\Http\Controllers\HasilJumlahController;
 use App\Http\Controllers\HasilSisaController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
+Route::get('/lara-welcome', function () {
     return Inertia::render('welcome');
 })->name('home');
 
@@ -57,8 +58,15 @@ Route::get('/undangan', function () {
 });
 
 Route::get('/cekjodoh', function () {
-    return Inertia::render('UndanganList');
+    return Inertia::render('Cekjodoh');
 });
+
+Route::get('/', function () {
+    return Inertia::render('LandingPage');
+});
+
+Route::post('/cekjodoh/cari-makna', [CekJodohController::class, 'cariMakna']);
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
