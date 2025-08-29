@@ -40,6 +40,7 @@ export default function Create({ categories }: CreateProps) {
         name: '',
         description: '',
         price: '',
+        link: '',
         category_id: '',
     });
 
@@ -117,6 +118,18 @@ export default function Create({ categories }: CreateProps) {
                                 placeholder="Enter price"
                                 value={data.price}
                                 onChange={(e) => setData('price', e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <Label htmlFor="link">Product Link</Label>
+                            <Input
+                                type="text"
+                                id="link"
+                                name="link"
+                                placeholder="Enter product link"
+                                value={data.link}
+                                onChange={(e) => setData('link', e.target.value)}
                                 required
                             />
                         </div>

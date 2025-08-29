@@ -60,7 +60,7 @@ export default function Landing() {
             </section>
 
             {/* Feature Icons */}
-            <div className="flex flex-col md:flex-row justify-around text-center py-20 px-4 bg-white gap-6">
+            <div className="flex flex-col md:flex-row justify-around text-center py-20 md:px-40 bg-white gap-6">
                 <div>
                     <div className="text-2xl">  <img loading="lazy" src="/img/konsultasi_gratis.png" alt="Hero" className="mx-auto mb-5 h-20" /></div>
                     <p className="font-bold">Konsultasi Gratis</p>

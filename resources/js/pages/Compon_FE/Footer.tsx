@@ -3,6 +3,7 @@ import {
     FaTwitter,
     FaLinkedinIn,
     FaInstagram,
+    FaWhatsapp,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
@@ -61,7 +62,7 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row justify-between items-center px-6 md:px-16 py-4 border-t bg-gray-100 text-gray-600 text-xs">
                 <p>© 2015 Brand. All Rights Reserved.</p>
                 <div className="flex gap-3 mt-2 md:mt-0">
-                    <a href="#" className="text-grey-500 hover:text-grey-700 ">
+                    {/* <a href="#" className="text-grey-500 hover:text-grey-700 ">
                         <FaFacebookF className="h-8 w-8" />
                     </a>
                     <a href="#" className="text-grey-500 hover:text-grey-700 ">
@@ -69,12 +70,15 @@ export default function Footer() {
                     </a>
                     <a href="#" className="text-grey-500 hover:text-grey-700 ">
                         <FaLinkedinIn className="h-8 w-8" />
-                    </a>
-                    <a href="#" className="text-grey-500 hover:text-grey-700 ">
+                    </a> */}
+                    <a href="https://www.instagram.com/amplop.digital" className="text-grey-500 hover:text-grey-700 ">
                         <FaInstagram className="h-8 w-8" />
                     </a>
-                    <a href="#" className="text-grey-500 hover:text-grey-700 ">
+                    <a href="mailto:boon.image.design@gmail.com" className="text-grey-500 hover:text-grey-700 ">
                         <MdEmail className="h-8 w-8" />
+                    </a>
+                    <a href="https://wa.me/0898214477" className="text-grey-500 hover:text-grey-700 ">
+                        <FaWhatsapp className="h-8 w-8" />
                     </a>
                 </div>
             </div>

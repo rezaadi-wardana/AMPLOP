@@ -49,21 +49,28 @@ Route::get('/beranda', function () {
     return Inertia::render('LandingPage');
 });
 
-Route::get('/produk', function () {
-    return Inertia::render('ProdukPage');
-});
+// Route::get('/produk', function () {
+//     return Inertia::render('ProdukPage');
+// });
+Route::get('/produk', [ProductController::class, 'list'])->name('produk.page');
+
 
 Route::get('/undangan', function () {
     return Inertia::render('UndanganList');
 });
 
 Route::get('/cekjodoh', function () {
+    return Inertia::render('LandingCekJodoh');
+});
+
+Route::get('/cekjodohpage', function () {
     return Inertia::render('Cekjodoh');
 });
 
 Route::get('/', function () {
     return Inertia::render('LandingPage');
-});
+})->name('beranda');
+
 
 Route::post('/cekjodoh/cari-makna', [CekJodohController::class, 'cariMakna']);
 

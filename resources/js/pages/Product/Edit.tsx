@@ -36,6 +36,7 @@ interface Product {
     name: string;
     description: string;
     price: number;
+    link: string;
     category_id: number;
 }
 
@@ -50,6 +51,7 @@ export default function EditProduct({ categories, product }: Props) {
         name: product.name,
         description: product.description,
         price: product.price,
+        link: product.link,
         category_id: product.category_id,
     });
 
@@ -81,6 +83,7 @@ function handleUpdate(e: React.FormEvent) {
     formData.append('_method', 'put'); // method spoofing untuk Laravel
     formData.append('name', data.name);
     formData.append('price', data.price.toString());
+    formData.append('link', data.link);
     formData.append('category_id', data.category_id.toString());
     formData.append('description', data.description ?? '');
 
@@ -161,7 +164,17 @@ function handleUpdate(e: React.FormEvent) {
                                 required
                             />
                         </div>
-
+                        <div>
+                            <Label htmlFor="link">Product Link</Label>
+                            <Input
+                                id="link"
+                                name="link"
+                                type="text"
+                                value={data.link}
+                                onChange={(e) => setData('link', e.target.value)}
+                                required
+                            />
+                        </div>
                         <div>
                             <Label htmlFor="category_id">Category</Label>
                             <Select

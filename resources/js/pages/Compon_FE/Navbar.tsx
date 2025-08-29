@@ -35,10 +35,10 @@ export default function Navbar() {
                             transition={{ duration: 0.3 }}
                             className="bg-[#331A00] text-white md:text-sm text-[12px] py-2 px-4 flex justify-between items-center"
                         >
-                            <span>Support: (406) 555-0120</span>
+                            <span>Support: (+62) 8982-1944-77</span>
                             <span>
                                 Daftar dan <strong>DAPATKAN 25% DISKON</strong> untuk pertama kali,{' '}
-                                <a href="#" className="underline">Klik Untuk Daftar</a>
+                                <a href="/register" className="underline">Klik Untuk Daftar</a>
                             </span>
                         </motion.div>
                     )}
@@ -67,6 +67,7 @@ export default function Navbar() {
                         {/* <li><Link href="/about">About Us</Link></li>
                         <li><Link href="/contact">Contact Us</Link></li>
                         <li><Link href="/blog">Blog</Link></li> */}
+                        <li><Link href="/login" className="py-2 px-4 bg-gray-800 text-white rounded-lg">Login</Link></li>
                     </ul>
 
                     {/* Icons */}

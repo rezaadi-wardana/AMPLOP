@@ -27,6 +27,7 @@ interface Product {
     name: string;
     description: string;
     price: number;
+    link: string;
     category_id: number;
 }
 
@@ -76,6 +77,7 @@ export default function Index() {
                                 <TableHead className="w-[50px]">ID</TableHead>
                                 <TableHead>Name</TableHead>
                                 <TableHead>Price</TableHead>
+                                <TableHead>Link</TableHead>
                                 <TableHead>Category</TableHead>
                                 <TableHead>Image</TableHead>
                                 <TableHead>Description</TableHead>
@@ -88,6 +90,11 @@ export default function Index() {
                                     <TableCell className="font-medium">{product.id}</TableCell>
                                     <TableCell>{product.name}</TableCell>
                                     <TableCell>Rp {product.price.toLocaleString()}</TableCell>
+                                    <TableCell>
+                                        <a href={product.link} target='_blank' rel='noopener noreferrer' className='ax-w-sm whitespace-pre-line break-words'>
+                                            {product.link}
+                                        </a>
+                                    </TableCell>
                                     <TableCell>{product.category_id == 7 ? 'Islami' : product.category_id == 9 ? 'Elegan' : 'Not defined'}</TableCell>
                                     <TableCell>
                                         <img
@@ -96,7 +103,7 @@ export default function Index() {
                                             className="w-16 h-16 object-cover rounded-md"
                                         />
                                     </TableCell>
-                                    <TableCell>{product.description}</TableCell>
+                                    <TableCell className='ax-w-sm whitespace-pre-line break-words'>{product.description}</TableCell>
                                     <TableCell className="text-center space-x-2">
                                         <Link href={route('product.edit', product.id)} prefetch>
                                             <Button disabled={processing}>Edit</Button>

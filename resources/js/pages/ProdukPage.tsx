@@ -1,29 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './Compon_FE/Navbar'
 import Footer from './Compon_FE/Footer'
-import { motion } from 'framer-motion'; // Pastikan framer-motion sudah terinstall
+import { motion } from 'framer-motion';// Pastikan framer-motion sudah terinstall
+import { usePage } from '@inertiajs/react';
+
+interface Product {
+    id: number;
+    image: string;
+    name: string;
+    description: string;
+    price: string | number;
+    link: string;
+    category_id: number;
+}
+
+interface Category {
+    id: number;
+    category_name: string;
+    category_desc: string;
+}
+
+
+interface PageProps {
+    products: Product[];
+    categories: Category[];
+}
+
+const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('id-ID').format(price);
+};
+
 
 const ProdukPage = () => {
-    const categories = ["Budaya", "Islami", "Mewah", "Pastel", "Elegan"];
+    const { products, categories } = usePage().props as unknown as PageProps;
 
-    const produkHighlight = [{
-        title: "Adat Jawa",
-        image: "/img/P1.png",
-        price: "Rp 99.000",
-        link: "https://invitation-java-culture.ramacitraindofurniture.com",
-    }, {
-        title: "Adat Bali",
-        image: "/img/P2.png",
-        price: "Rp 99.000",
-        link: "https://invitation-bali-culture.ramacitraindofurniture.com",
-    }, {
-        title: "Silver Elegan",
-        image: "/img/P3.png",
-        price: "Rp 49.500",
-        originalPrice: "Rp 99.000",
-        discount: "50%",
-        link: "https://invitationcard.ramacitraindofurniture.com"
-    }];
+    // state untuk kategori terpilih
+    const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
+    // filter produk sesuai kategori
+    const filteredProducts =
+        selectedCategory === null
+            ? products
+            : products.filter((p) => p.category_id === selectedCategory);
 
     return (
         <div className='Produk bg-white text-gray-800 font-sans'>
@@ -35,12 +53,27 @@ const ProdukPage = () => {
                 <h1 className="text-4xl font-bold mb-4">Produk</h1>
                 <p className="text-lg mb-6">Sesuaikan pilihan anda dengan berbagai banyak produk yang kami miliki</p>
                 <div className="flex justify-center gap-4 flex-wrap">
-                    {categories.map((cat, i) => (
+                    {/* tombol semua */}
+                    <button
+                        onClick={() => setSelectedCategory(null)}
+                        className={`px-5 py-2 rounded-md font-semibold ${selectedCategory === null
+                                ? 'bg-black text-white'
+                                : 'bg-white text-black hover:bg-black hover:text-white'
+                            }`}
+                    >
+                        Semua
+                    </button>
+
+                    {categories.map((cat) => (
                         <button
-                            key={i}
-                            className={`px-5 py-2 rounded-md font-semibold ${i === 0 ? 'bg-black text-white' : 'bg-white text-black hover:bg-black hover:text-white'}`}
+                            key={cat.id}
+                            onClick={() => setSelectedCategory(cat.id)}
+                            className={`px-5 py-2 rounded-md font-semibold ${selectedCategory === cat.id
+                                    ? 'bg-black text-white'
+                                    : 'bg-white text-black hover:bg-black hover:text-white'
+                                }`}
                         >
-                            {cat}
+                            {cat.category_name}
                         </button>
                     ))}
                 </div>
@@ -48,9 +81,10 @@ const ProdukPage = () => {
 
             {/* Product Highlights */}
             <div className="grid grid-cols-2 md:grid-cols-3 md:gap-6 gap-2 md:px-40 py-12">
-                {produkHighlight.map((item, index) => (
+        {(filteredProducts ?? []).map((product: Product) => (
+
                     <motion.div
-                        key={index}
+                        key={product.id}
                         whileHover={{
                             scale: 1.03,
                             boxShadow: "0 12px 24px rgba(0, 0, 0, 0.1)",
@@ -63,22 +97,22 @@ const ProdukPage = () => {
                         className="bg-[#F9F9F9] md:p-6 p-2 rounded-xl grid hover:bg-white transition-colors duration-300 place-items-center"
                     >
                         <h3 className="text-lg place-self-start font-semibold mb-2">Undangan Pernikahan</h3>
-                        <h2 className="text-2xl place-self-start font-bold">{item.title}</h2>
+                        <h2 className="text-2xl place-self-start font-bold">{product.name}</h2>
 
-                        {item.originalPrice ? (
+                        {/* {product.originalPrice ? (
                             <div className="flex items-center flex-wrap">
                                 <p className="text-sm w-32 flex-auto text-gray-500 line-through decoration-3 tracking-wider my-2 font-medium">{item.originalPrice}</p>
                                 <div className="text-sm w-32 flex-auto bg-yellow-100 px-3 py-1 inline-block rounded-full font-medium mb-2 text-center">
                                     <span className="font-bold text-green-700">{item.price}</span> ⭐ {item.discount} OFF
                                 </div>
                             </div>
-                        ) : (
-                            <p className="text-sm text-green-600 my-2 font-bold place-self-start">{item.price}</p>
-                        )}
+                        ) : ( */}
+                        <p className="text-sm text-green-600 my-2 font-bold place-self-start">Rp {formatPrice(Number(product.price))}</p>
+                        {/* )} */}
 
-                        <img loading="lazy" src={item.image} alt={item.title} className="rounded-md md:h-60 h-40 mt-4 self-stretch " />
+                        <img loading="lazy" src={`storage/${product.image}`} alt={product.name} className="rounded-md md:h-60 h-40 my-4 self-stretch " />
                         <a
-                            href={item.link} target='_blank'
+                            href={product.link} target='_blank'
                             className="inline-block mx-15 bg-black text-white text-center px-6 py-3 rounded-md text-sm hover:bg-gray-800 transition-all duration-300"
                         >
                             Preview

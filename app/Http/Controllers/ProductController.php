@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
+    // BACK END
     public function index()
     {
         $product = Product::all();
@@ -34,6 +35,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
+            'link' => 'required|url',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required|exists:categories,id',
         ]);
@@ -42,6 +44,7 @@ class ProductController extends Controller
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
+            'link' => $request->link,
             'description' => $request->description,
             'image' => $imagePath,
             'category_id' => $request->category_id,
@@ -60,29 +63,43 @@ class ProductController extends Controller
         ]);
     }
 
-   public function update(Product $product, Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric',
-        'category_id' => 'required|exists:categories,id',
-        'description' => 'nullable|string',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    ]);
+    public function update(Product $product, Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'link' => 'required|url',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
 
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('products', 'public');
-        $product->image = $imagePath;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+            $product->image = $imagePath;
+        }
+
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'link' => $request->link,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+        ]);
+
+        return redirect()->route('product.index')->with('message', 'Product updated successfully.');
     }
+    // END BACK END
 
-    $product->update([
-        'name' => $request->name,
-        'price' => $request->price,
-        'description' => $request->description,
-        'category_id' => $request->category_id,
-    ]);
-
-    return redirect()->route('product.index')->with('message', 'Product updated successfully.');
-}
-
+    // FRONT END
+    public function list(Product $products)
+    {
+        $products = Product::all();
+        $categories = Category::all(['id', 'category_name']);
+        return Inertia::render('ProdukPage', [
+            'products' => $products,
+            'categories' => $categories,
+        ]);
+    }
+    // END FRONT END
 }
