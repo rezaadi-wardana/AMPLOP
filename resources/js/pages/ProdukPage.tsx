@@ -57,8 +57,8 @@ const ProdukPage = () => {
                     <button
                         onClick={() => setSelectedCategory(null)}
                         className={`px-5 py-2 rounded-md font-semibold ${selectedCategory === null
-                                ? 'bg-black text-white'
-                                : 'bg-white text-black hover:bg-black hover:text-white'
+                            ? 'bg-black text-white'
+                            : 'bg-white text-black hover:bg-black hover:text-white'
                             }`}
                     >
                         Semua
@@ -69,8 +69,8 @@ const ProdukPage = () => {
                             key={cat.id}
                             onClick={() => setSelectedCategory(cat.id)}
                             className={`px-5 py-2 rounded-md font-semibold ${selectedCategory === cat.id
-                                    ? 'bg-black text-white'
-                                    : 'bg-white text-black hover:bg-black hover:text-white'
+                                ? 'bg-black text-white'
+                                : 'bg-white text-black hover:bg-black hover:text-white'
                                 }`}
                         >
                             {cat.category_name}
@@ -81,7 +81,7 @@ const ProdukPage = () => {
 
             {/* Product Highlights */}
             <div className="grid grid-cols-2 md:grid-cols-3 md:gap-6 gap-2 md:px-40 py-12">
-        {(filteredProducts ?? []).map((product: Product) => (
+                {(filteredProducts ?? []).map((product: Product) => (
 
                     <motion.div
                         key={product.id}
