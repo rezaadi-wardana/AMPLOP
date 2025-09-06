@@ -91,7 +91,7 @@ export default function Index() {
                                 <TableRow>
                                     <TableCell className="font-medium">{category.id}</TableCell>
                                     <TableCell>{category.category_name}</TableCell>
-                                    <TableCell>{category.category_desc}</TableCell>
+                                    <TableCell  className="max-w-sm whitespace-pre-line break-words">{category.category_desc}</TableCell>
                                     <TableCell className="text-center space-x-2 ">
                                         <Link href={route('category.edit', category.id)} prefetch>
                                             <Button disabled={processing} className=''>Edit</Button>

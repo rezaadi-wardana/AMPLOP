@@ -1,12 +1,53 @@
 // import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import Navbar from './Compon_FE/Navbar'
 import Footer from "./Compon_FE/Footer";
+import Galeri from "./Compon_FE/Galeri";
 
+interface Product {
+    id: number;
+    image: string;
+    name: string;
+    description: string;
+    price: string | number;
+    link: string;
+    category_id: number;
+}
+
+interface Category {
+    id: number;
+    category_name: string;
+    category_desc: string;
+}
+
+
+interface PageProps {
+    products: Product[];
+    categories: Category[];
+}
+
+
+function formatPrice(price: number): string {
+    return price.toLocaleString('id-ID', { minimumFractionDigits: 0 });
+}
 
 export default function Landing() {
+    const { products, } = usePage().props as unknown as PageProps;
+
+    // Use all products since filtering is commented out
+    const filteredProducts = products;
+
+      // state untuk kategori terpilih
+        // const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
+        // filter produk sesuai kategori
+        // const filteredProducts =
+        //     selectedCategory === null
+        //         ? products
+        //         : products.filter((p) => p.category_id === selectedCategory);
+
     const [scrollY, setScrollY] = useState(0);
 
     useEffect(() => {
@@ -79,43 +120,12 @@ export default function Landing() {
             </div>
 
             {/* Galeri */}
-            <div className="md:grid grid-col bg-gray-900 text-center py-20 md:px-40 bg-white gap-5 md:h-[100vh] h-[100%] w-[100%] ">
-                <div className="col-1 h-[100%] w-[100%] bg-gray-200 bg-linear-to-br from-transparent to-white relative rounded-l-lg md:mb-0 mb-5  ">
-                    <a href="/cekjodoh">
-                        <div className="wrap-bg-gradient h-[100%] w-[100%] bg-[url(/img/box-1.png)] bg-no-repeat bg-contain bg-bottom bg-right text-left p-10  rounded-l-lg hover:bg-gray-300 hover:ease-in ease-in duration-400">
-                            <div className="wrap-text w-[70%]">
-                                <h1 className="text-[1.5em] md:text-[2em] mb-2 font-black">Cek Jodoh Anda</h1>
-                                <p className="mb-5">Cek jodoh Anda dengan menggunakan layanan Cek Jodoh berdasarkan weton jawa, Hanya untuk pengetahuan bukan untuk dipercaya</p>
-                                <a href="/cekjodoh" className="bg-[#FFC107] text-gray-900 font-bold py-2 px-5 rounded-full">Coba Sekarang</a>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div className="col-2 h-[100%] w-[100%] flex flex-col gap-5">
-                    <div className="row-1 h-[50%] bg-gray-200 bg-linear-to-br from-transparent to-white relative rounded-l-lg ">
-                        <div className="wrap-bg-gradient h-[100%]  bg-[url(/img/box-2.png)] bg-no-repeat bg-contain bg-bottom bg-right text-left p-10  rounded-tr-lg hover:bg-gray-300 hover:ease-in ease-in duration-400">
-                            <div className="wrap-text w-[60%]">
-                                <h1 className="text-[1.5em] md:text-[2em] mb-2 font-semibold">Undangan Digital</h1>
-                                <p>Buat undangan digital yang menarik dan interaktif dengan mudah.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row-2 h-[50%] w-[100%] bg-gray-200 bg-linear-to-br from-transparent to-white relative rounded-l-lg ">
-                        <div className="wrap-bg-gradient h-[100%]  bg-[url(/img/box-3.png)] bg-no-repeat bg-contain bg-bottom bg-right text-left p-10  rounded-br-lg hover:bg-gray-300 hover:ease-in ease-in duration-400">
-                            <div className="wrap-text w-[60%]">
-                                <h1 className="text-[1.5em] md:text-[2em] mb-2 font-semibold">Genggaman</h1>
-                                <p>Sebarakan undangan Anda dengan mudah dan cepat hanya dalam genggaman, lebih praktis dan hemat </p>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Galeri />
 
             {/* Product Highlights */}
             <div className="grid grid-cols-2 md:grid-cols-3 md:gap-6 gap-2 md:px-40 py-12">
 
-                {[{
+                {/* {[{
                     title: "Adat Jawa",
                     image: "/img/P1.png",
                     price: "Rp 99.000"
@@ -165,7 +175,47 @@ export default function Landing() {
                             Preview
                         </Link>
                     </motion.div>
-                ))}
+                ))} */}
+                  {(filteredProducts ?? []).map((product: Product) => (
+
+                                    <motion.div
+                                        key={product.id}
+                                        whileHover={{
+                                            scale: 1.03,
+                                            boxShadow: "0 12px 24px rgba(0, 0, 0, 0.1)",
+                                            y: -4,
+                                        }}
+                                        transition={{
+                                            duration: 0.4,
+                                            ease: "easeInOut"
+                                        }}
+                                        className="bg-[#F9F9F9] md:p-6 p-2 rounded-xl grid hover:bg-white transition-colors duration-300 place-items-center"
+                                    >
+                                        <h3 className="text-lg place-self-start font-semibold mb-2">Undangan Pernikahan</h3>
+                                        <h2 className="text-2xl place-self-start font-bold">{product.name}</h2>
+
+                                        {/* {product.originalPrice ? (
+                                            <div className="flex items-center flex-wrap">
+                                                <p className="text-sm w-32 flex-auto text-gray-500 line-through decoration-3 tracking-wider my-2 font-medium">{item.originalPrice}</p>
+                                                <div className="text-sm w-32 flex-auto bg-yellow-100 px-3 py-1 inline-block rounded-full font-medium mb-2 text-center">
+                                                    <span className="font-bold text-green-700">{item.price}</span> ⭐ {item.discount} OFF
+                                                </div>
+                                            </div>
+                                        ) : ( */}
+                                        <p className="text-sm text-green-600 my-2 font-bold place-self-start">Rp {formatPrice(Number(product.price))}</p>
+                                        {/* )} */}
+
+                                        <img loading="lazy" src={`storage/${product.image}`} alt={product.name} className="rounded-md md:h-60 h-40 my-4 self-stretch " />
+                                        <a
+                                            href={product.link} target='_blank'
+                                            className="inline-block mx-15 bg-black text-white text-center px-6 py-3 rounded-md text-sm hover:bg-gray-800 transition-all duration-300"
+                                        >
+                                            Preview
+                                        </a>
+                                    </motion.div>
+                                ))}
+
+
             </div>
 
             {/* TESTIMONI & SUBSCRIBE */}

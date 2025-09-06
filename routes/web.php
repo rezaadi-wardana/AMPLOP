@@ -67,10 +67,7 @@ Route::get('/cekjodohpage', function () {
     return Inertia::render('Cekjodoh');
 });
 
-Route::get('/', function () {
-    return Inertia::render('LandingPage');
-})->name('beranda');
-
+Route::get('/', [ProductController::class, 'landing'])->name('beranda');
 
 Route::post('/cekjodoh/cari-makna', [CekJodohController::class, 'cariMakna']);
 

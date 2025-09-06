@@ -46,7 +46,6 @@ const HeroSection = () => {
             >
                 <div className="absolute inset-0 bg-black opacity-30"></div>
             </div>
-
             <div className="container mx-auto px-4 z-10 text-center text-white">
                 <motion.h1
                     initial={{ opacity: 0, y: -20 }}

@@ -22,6 +22,17 @@ class ProductController extends Controller
         ]);
     }
 
+        public function landing()
+    {
+        $product = Product::all();
+        $categories = Category::all(['id', 'category_name']); // ambil id dan name saja
+        // return inertia('Product/Index', compact('product', 'categories'));
+        return inertia('LandingPage', [
+            'products' => $product,
+            'categories' => $categories,
+        ]);
+    }
+
     public function create()
     {
         // return inertia('Product/Create');
