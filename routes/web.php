@@ -7,6 +7,7 @@ use App\Http\Controllers\HasilJumlahController;
 use App\Http\Controllers\HasilSisaController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ManageUserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -56,7 +57,15 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('manage_user/{users}/edit', [ManageUserController::class, 'edit'])->name('manage_user.edit');
     Route::put('manage_user/{users}', [ManageUserController::class, 'update'])->name('manage_user.update');
     Route::delete('manage_user/{users}', [ManageUserController::class, 'destroy'])->name('manage_user.destroy');
+
+    Route::get('order', [OrderController::class, 'index'])->name('order.index');
+    Route::post('order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('order/create', [OrderController::class, 'create'])->name('order.create');
+    Route::get('order/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
+    Route::put('order/{order}', [OrderController::class, 'update'])->name('order.update');
+    Route::delete('order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
 });
+
 
 Route::get('/beranda', function () {
     return Inertia::render('LandingPage');

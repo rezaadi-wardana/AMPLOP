@@ -55,26 +55,6 @@ export default function EditProduct({ categories, product }: Props) {
         category_id: product.category_id,
     });
 
-    // function handleUpdate(e: React.FormEvent) {
-    //     e.preventDefault();
-    //     console.log(data)
-    //     put(route('product.update', product.id), {
-    //         forceFormData: true,
-    //     // console.log(data)
-    //         onSuccess: () => {
-    //             // Redirect or show success message
-    //         },
-    //         onError: (error) => {
-    //             // Handle error
-    //             console.error('Update failed:', error);
-    //         },
-    //         preserveScroll: true,
-    //         preserveState: true,
-    //     });
-    // }
-
-//  import { router } from '@inertiajs/react';
-
 function handleUpdate(e: React.FormEvent) {
     e.preventDefault();
 
@@ -202,7 +182,6 @@ function handleUpdate(e: React.FormEvent) {
 
                             <p className="text-xs text-muted-foreground">
                                 Selected ID: {data.category_id}                            </p>
-
 
                         </div>
 
