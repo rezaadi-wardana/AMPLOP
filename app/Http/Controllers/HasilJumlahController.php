@@ -12,12 +12,12 @@ class HasilJumlahController extends Controller
     public function index()
     {
         $hasil_jumlah = Hasil_jumlah::all();
-        return Inertia::render('Hasil_jumlah/Index', compact('hasil_jumlah'));
+        return Inertia::render('Admin/MenuHasilJumlah/Index', compact('hasil_jumlah'));
     }
 
     public function create()
     {
-        return Inertia::render('Hasil_jumlah/Create');
+        return Inertia::render('Admin/MenuHasilJumlah/Create');
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class HasilJumlahController extends Controller
 
     public function edit(Hasil_jumlah $hasil_jumlah)
     {
-        return Inertia::render('Hasil_jumlah/Edit', compact('hasil_jumlah'));
+        return Inertia::render('Admin/MenuHasilJumlah/Edit', compact('hasil_jumlah'));
     }
     public function update(Hasil_jumlah $hasil_jumlah, Request $request)
     {

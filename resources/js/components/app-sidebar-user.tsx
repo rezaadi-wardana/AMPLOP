@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, ChartColumnStacked, ChartNoAxesGantt, Sigma, Tally5, Users } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, ChartColumnStacked, ChartNoAxesGantt, Sigma, Tally5 } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -14,29 +14,20 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Category',
-        href: '/category',
+        title: 'Statistik',
+        href: '/statistik',
         icon: ChartColumnStacked,
     },
     {
-        title: 'Product',
-        href: '/product',
+
+        title: 'Buku Tamu',
+        href: '/buku tamu',
         icon: ChartNoAxesGantt,
     },
     {
-        title: 'Hasil Jumlah',
-        href: '/hasil_jumlah',
-        icon: Sigma,
-    },
-    {
-        title: 'Hasil Sisa',
-        href: '/hasil_sisa',
+        title: 'Akun Saya',
+        href: '/akun saya',
         icon: Tally5,
-    },
-    {
-        title: 'Manage Users',
-        href: '/manage_user',
-        icon: Users,
     },
 ];
 

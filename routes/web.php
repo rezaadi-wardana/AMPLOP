@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CekJodohController;
 use App\Http\Controllers\HasilJumlahController;
 use App\Http\Controllers\HasilSisaController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ManageUserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,9 +16,12 @@ Route::get('/lara-welcome', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('/u/dashboard', action: [UserController::class, 'dashboard'])->name(name: 'dashboard.user');
+});
+
+Route::middleware(['auth','verified'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
     Route::get('category', [CategoryController::class, 'index'])->name('category.index');
     Route::post('category', [CategoryController::class, 'store'])->name('category.store');
     Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
@@ -43,6 +49,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('hasil_sisa/{hasil_sisa}/edit', [HasilSisaController::class, 'edit'])->name('hasil_sisa.edit');
     Route::put('hasil_sisa/{hasil_sisa}', [HasilSisaController::class, 'update'])->name('hasil_sisa.update');
     Route::delete('hasil_sisa/{hasil_sisa}', [HasilSisaController::class, 'destroy'])->name('hasil_sisa.destroy');
+
+    Route::get('manage_user', [ManageUserController::class, 'index'])->name('manage_user.index');
+    Route::post('manage_user', [ManageUserController::class, 'store'])->name('manage_user.store');
+    Route::get('manage_user/create', [ManageUserController::class, 'create'])->name('manage_user.create');
+    Route::get('manage_user/{users}/edit', [ManageUserController::class, 'edit'])->name('manage_user.edit');
+    Route::put('manage_user/{users}', [ManageUserController::class, 'update'])->name('manage_user.update');
+    Route::delete('manage_user/{users}', [ManageUserController::class, 'destroy'])->name('manage_user.destroy');
 });
 
 Route::get('/beranda', function () {

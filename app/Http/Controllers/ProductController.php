@@ -16,7 +16,7 @@ class ProductController extends Controller
         $product = Product::all();
         $categories = Category::all(['id', 'category_name']); // ambil id dan name saja
         // return inertia('Product/Index', compact('product', 'categories'));
-        return inertia('Product/Index', [
+        return inertia('Admin/MenuProduct/Index', [
             'products' => $product,
             'categories' => $categories,
         ]);
@@ -37,7 +37,7 @@ class ProductController extends Controller
     {
         // return inertia('Product/Create');
         $categories = Category::all(['id', 'category_name']); // ambil id dan name saja
-        return inertia('Product/Create', compact('categories'));
+        return inertia('Admin/MenuProduct/Create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -68,7 +68,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($product->id); // <-- ambil produk berdasarkan id
         $categories = Category::all(['id', 'category_name']); // <-- ambil semua kategori
 
-        return Inertia::render('Product/Edit', [
+        return Inertia::render('Admin/MenuProduct/Edit', [
             'product' => $product,
             'categories' => $categories,
         ]);
@@ -99,6 +99,11 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('product.index')->with('message', 'Product updated successfully.');
+    }
+
+       public function destroy(Product $product){
+        $product->delete();
+        return redirect()->route('product.index')->with('message', 'Category deleted successfully.');
     }
     // END BACK END
 

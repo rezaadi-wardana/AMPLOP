@@ -12,12 +12,12 @@ class CategoryController extends Controller
     public function index()
     {
         $category = Category::all();
-        return Inertia::render('Category/Index',compact('category'));
+        return Inertia::render('Admin/MenuCategory/Index',compact('category'));
     }
 
     public function create()
     {
-        return Inertia::render('Category/Create');
+        return Inertia::render('Admin/MenuCategory/Create');
     }
 
     public function store(Request $request)   {
@@ -34,7 +34,7 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        return Inertia::render('Category/Edit', compact('category'));
+        return Inertia::render('Admin/MenuCategory/Edit', compact('category'));
 
     }
     public function update(Category $category, Request $request) {
