@@ -71,9 +71,6 @@ Route::get('/beranda', function () {
     return Inertia::render('LandingPage');
 });
 
-// Route::get('/produk', function () {
-//     return Inertia::render('ProdukPage');
-// });
 Route::get('/produk', [ProductController::class, 'list'])->name('produk.page');
 
 
