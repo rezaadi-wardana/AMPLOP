@@ -1,36 +1,32 @@
-name: Deploy Laravel + React to Niagahoster
+name: Deploy ke Niagahoster
 
 on:
   push:
-    branches: [ "main" ] # akan jalan setiap push ke branch main
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Ambil kode dari GitHub
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 2. Install Node.js untuk build React
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build assets React
-        run: npm run build
-
-      # 3. Upload semua file ke hosting via FTP
-      - name: Deploy to Niagahoster via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./ # semua file project
-          server-dir: /home/u636634107/domains/amplop.site/public_html/
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 65002
+          script: |
+            cd ~/project
+            git reset --hard
+            git pull origin main
+            composer install --no-dev --optimize-autoloader
+            npm install
+            npm run build
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
