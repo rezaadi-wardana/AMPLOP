@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 65002
           script: |
-            cd ~/project
+            cd /home/username/domains/namadomain.com/public_html/AMPLOP
             git reset --hard
             git pull origin main
             composer install --no-dev --optimize-autoloader
