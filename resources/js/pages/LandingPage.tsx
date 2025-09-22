@@ -205,7 +205,7 @@ export default function Landing() {
                                         <p className="text-sm text-green-600 my-2 font-bold place-self-start">Rp {formatPrice(Number(product.price))}</p>
                                         {/* )} */}
 
-                                        <img loading="lazy" src={`storage/app/public${product.image}`} alt={product.name} className="rounded-md md:h-60 h-40 my-4 self-stretch " />
+                                        <img loading="lazy" src={`storage/${product.image}`} alt={product.name} className="rounded-md md:h-60 h-40 my-4 self-stretch " />
                                         <a
                                             href={product.link} target='_blank'
                                             className="inline-block mx-15 bg-black text-white text-center px-6 py-3 rounded-md text-sm hover:bg-gray-800 transition-all duration-300"

@@ -129,7 +129,7 @@ export default function Index() {
                                     <TableCell>
                                         {order.bukti_pembayaran ? (
                                             <img
-                                                src={`storage/app/public/${order.bukti_pembayaran}`}
+                                                src={`storage/${order.bukti_pembayaran}`}
                                                 alt="Bukti Pembayaran"
                                                 className="w-16 h-16 object-cover rounded-md"
                                             />
