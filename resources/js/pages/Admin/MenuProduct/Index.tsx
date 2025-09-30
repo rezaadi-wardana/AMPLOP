@@ -98,7 +98,7 @@ export default function Index() {
                                     <TableCell>{product.category_id == 7 ? 'Islami' : product.category_id == 9 ? 'Elegan' : 'Not defined'}</TableCell>
                                     <TableCell>
                                         <img
-                                            src={`storage/${product.image}`}
+                                            src={`/${product.image}`}
                                             alt={product.name}
                                             className="w-16 h-16 object-cover rounded-md"
                                         />

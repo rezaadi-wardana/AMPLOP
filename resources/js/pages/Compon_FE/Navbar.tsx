@@ -33,49 +33,55 @@ export default function Navbar() {
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -50, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="bg-[#331A00] text-white md:text-sm text-[12px] py-2 px-4 flex justify-between items-center"
+                        className="bg-[#331A00] text-white md:text-sm text-[12px] flex justify-center"
                     >
-                        <span>Support: (+62) 8982-1944-77</span>
-                        <span>
-                            Daftar dan <strong>DAPATKAN 25% DISKON</strong> untuk pertama kali,{' '}
-                            <a href="/register" className="underline">Klik Untuk Daftar</a>
-                        </span>
+                        <div className="wrap-nav-top max-w-[1280px]  flex justify-between items-center w-full  py-2 px-8">
+                            <span>Support: (+62) 8982-1944-77</span>
+                            <span>
+                                Daftar dan <strong>DAPATKAN 25% DISKON</strong> untuk pertama kali,{' '}
+                                <a href="/register" className="underline">Klik Untuk Daftar</a>
+                            </span>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
 
             {/* Navbar */}
-            <div className="flex items-center justify-between px-6 md:px-40 py-4 bg-white relative">
-                {/* Logo */}
-                <div className="text-2xl font-bold amplop">
-                    <img loading="lazy" className="h-10" src="/img/amplop.png" />
-                </div>
+            <div className=" flex bg-white justify-center relative w-full shadow-md">
+                <div className="wrap-nav-main flex items-center justify-between w-full py-4 px-8 max-w-[1280px] ">
+                    {/* Logo */}
+                    <div className="text-2xl font-bold amplop">
+                        <a href="/">
+                            <img loading="lazy" className="h-5" src="/img/amplop.png" />
+                        </a>
+                    </div>
 
-                {/* Mobile Menu Button */}
-                <button className="md:hidden text-black" onClick={() => setMenuOpen(!menuOpen)}>
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round"
-                            d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-                    </svg>
-                </button>
+                    {/* Mobile Menu Button */}
+                    <button className="md:hidden text-black" onClick={() => setMenuOpen(!menuOpen)}>
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                        </svg>
+                    </button>
 
-                {/* Desktop Menu */}
-                <ul className="hidden md:flex md:gap-6 text-md font-semibold ">
-                    <li><Link href="/">Home</Link></li>
-                    <li><Link href="/produk">Produk</Link></li>
-                    <li><Link href="/cekjodoh">Cek Jodoh</Link></li>
-                    {/* <li><Link href="/about">About Us</Link></li>
+                    {/* Desktop Menu */}
+                    <ul className="hidden md:flex md:gap-6 text-md font-semibold ">
+                        <li><Link href="/">Home</Link></li>
+                        <li><Link href="/produk">Produk</Link></li>
+                        <li><Link href="/cekjodoh">Cek Jodoh</Link></li>
+                        {/* <li><Link href="/about">About Us</Link></li>
                         <li><Link href="/contact">Contact Us</Link></li>
                         <li><Link href="/blog">Blog</Link></li> */}
-                    <li><Link href="/login" className="py-2 px-4 bg-gray-800 text-white rounded-lg">Login</Link></li>
-                </ul>
+                        <li><Link href="/login" className="py-2 px-4 bg-gray-800 text-white rounded-lg">Login</Link></li>
+                    </ul>
 
-                {/* Icons */}
-                {/* <div className="hidden md:flex gap-4">
+                    {/* Icons */}
+                    {/* <div className="hidden md:flex gap-4">
                         <img className="h-8 mx-2" src="/img/search.png" alt="Search" />
                         <img className="h-8 mx-2" src="/img/login.png" alt="Login" />
                         <img className="h-8 mx-2" src="/img/cart.png" alt="Cart" />
                     </div> */}
+                </div>
             </div>
 
             {/* Mobile Menu with animation */}

@@ -197,7 +197,7 @@ function handleUpdate(e: React.FormEvent) {
                             {typeof product.image === 'string' && (
                                 <div className="mt-2">
                                     <img
-                                        src={`/storage/${product.image}`}
+                                        src={`/${product.image}`}
                                         alt="Current Image"
                                         className="h-24 rounded-md"
                                     />

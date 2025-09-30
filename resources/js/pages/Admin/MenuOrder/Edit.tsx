@@ -222,7 +222,7 @@ function handleUpdate(e: React.FormEvent) {
                             />
                             {order.bukti_pembayaran && (
                                 <img
-                                    src={`/storage/${order.bukti_pembayaran}`}
+                                    src={`/${order.bukti_pembayaran}`}
                                     alt="Bukti Pembayaran"
                                     className="mt-2 h-24 rounded-md"
                                 />

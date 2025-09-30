@@ -69,7 +69,7 @@ const HeroSection = () => {
                     transition={{ duration: 0.8, delay: 0.3 }}
                     className="text-xl md:text-xl mb-8"
                 >
-                   Sistem Pakar Peramalan Jodoh berdasarkan Weton Jawa
+                    Sistem Pakar Peramalan Jodoh berdasarkan Weton Jawa
                 </motion.p>
                 <motion.button
                     whileHover={{ scale: 1.05 }}
@@ -156,67 +156,58 @@ const LandingCekJodoh = () => {
                         className="fixed top-0 left-0 w-full z-[9999] bg-white/80 backdrop-blur-md shadow-md"
                     >
                         {/* Top Bar */}
-                        <div className="bg-[#331A00] text-white md:text-sm text-[12px] py-2 px-4 flex justify-between items-center">
-                            <span>Support: (+62) 8982-1944-77</span>
-                            <span>
-                                Daftar dan <strong>DAPATKAN 25% DISKON</strong> untuk pertama kali,{" "}
-                                <a href="/register" className="underline">
-                                    Klik Untuk Daftar
-                                </a>
-                            </span>
-                        </div>
+                        <motion.div
+                            initial={{ y: -50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -50, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="bg-[#331A00] text-white md:text-sm text-[12px] flex justify-center"
+                        >
+                            <div className="wrap-nav-top max-w-[1280px]  flex justify-between items-center w-full  py-2 px-8">
+                                <span>Support: (+62) 8982-1944-77</span>
+                                <span>
+                                    Daftar dan <strong>DAPATKAN 25% DISKON</strong> untuk pertama kali,{' '}
+                                    <a href="/register" className="underline">Klik Untuk Daftar</a>
+                                </span>
+                            </div>
+                        </motion.div>
 
                         {/* Navbar */}
-                        <div className="flex items-center justify-between px-6 md:px-40 py-4 bg-white relative">
-                            {/* Logo */}
-                            <div className="text-2xl font-bold amplop">
-                                <img loading="lazy" className="h-10" src="/img/amplop.png" />
+                        <div className=" flex bg-white justify-center relative w-full shadow-md">
+                            <div className="wrap-nav-main flex items-center justify-between w-full py-4 px-8 max-w-[1280px] ">
+                                {/* Logo */}
+                                <div className="text-2xl font-bold amplop">
+                                    <a href="/">
+                                        <img loading="lazy" className="h-5" src="/img/amplop.png" />
+                                    </a>
+                                </div>
+
+                                {/* Mobile Menu Button */}
+                                <button className="md:hidden text-black" onClick={() => setMenuOpen(!menuOpen)}>
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round"
+                                            d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                                    </svg>
+                                </button>
+
+                                {/* Desktop Menu */}
+                                <ul className="hidden md:flex md:gap-6 text-md font-semibold ">
+                                    <li><Link href="/">Home</Link></li>
+                                    <li><Link href="/produk">Produk</Link></li>
+                                    <li><Link href="/cekjodoh">Cek Jodoh</Link></li>
+                                    {/* <li><Link href="/about">About Us</Link></li>
+                                                <li><Link href="/contact">Contact Us</Link></li>
+                                                <li><Link href="/blog">Blog</Link></li> */}
+                                    <li><Link href="/login" className="py-2 px-4 bg-gray-800 text-white rounded-lg">Login</Link></li>
+                                </ul>
+
+                                {/* Icons */}
+                                {/* <div className="hidden md:flex gap-4">
+                                                <img className="h-8 mx-2" src="/img/search.png" alt="Search" />
+                                                <img className="h-8 mx-2" src="/img/login.png" alt="Login" />
+                                                <img className="h-8 mx-2" src="/img/cart.png" alt="Cart" />
+                                            </div> */}
                             </div>
-
-                            {/* Mobile Menu Button */}
-                            <button
-                                className="md:hidden text-black"
-                                onClick={() => setMenuOpen(!menuOpen)}
-                            >
-                                <svg
-                                    className="w-6 h-6"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth={2}
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d={
-                                            menuOpen
-                                                ? "M6 18L18 6M6 6l12 12"
-                                                : "M4 6h16M4 12h16M4 18h16"
-                                        }
-                                    />
-                                </svg>
-                            </button>
-
-                            {/* Desktop Menu */}
-                            <ul className="hidden md:flex md:gap-6 text-md font-semibold ">
-                                <li>
-                                    <Link href="/">Home</Link>
-                                </li>
-                                <li>
-                                    <Link href="/produk">Produk</Link>
-                                </li>
-                                <li>
-                                    <Link href="/cekjodoh">Cek Jodoh</Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href="/login"
-                                        className="py-2 px-4 bg-gray-800 text-white rounded-lg"
-                                    >
-                                        Login
-                                    </Link>
-                                </li>
-                            </ul>
                         </div>
 
                         {/* Mobile Menu */}
@@ -251,7 +242,7 @@ const LandingCekJodoh = () => {
 
             {/* Hero Section */}
             <HeroSection />
-            <div className="container xl:px-40 lg:mx-auto lg:px-0 px-4 py-16 space-y-16 mx-auto" >
+            <div className="container xl:px-8 max-w-[1280px] lg:mx-auto lg:px-0 px-4 py-16 space-y-16 mx-auto" >
                 {/* Tentang Weton Jawa */}
                 <AnimatedSection className="bg-white"  >
                     <div className=" bg-right bg-no-repeat p-6 md:p-10" style={{
@@ -440,10 +431,10 @@ const LandingCekJodoh = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="bg-white text-orange-600 font-bold py-3 px-8 rounded-full text-lg shadow-lg"
-                              onClick={() => {
-                        // Navigasi ke halaman cek jodoh
-                        window.location.href = '/cekjodohpage';
-                    }}
+                            onClick={() => {
+                                // Navigasi ke halaman cek jodoh
+                                window.location.href = '/cekjodohpage';
+                            }}
                         >
                             Mulai Sekarang
                         </motion.button>

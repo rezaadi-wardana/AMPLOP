@@ -22,7 +22,7 @@ class ProductController extends Controller
         ]);
     }
 
-        public function landing()
+    public function landing()
     {
         $product = Product::all();
         $categories = Category::all(['id', 'category_name']); // ambil id dan name saja
@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function create()
     {
         // return inertia('Product/Create');
-        $categories = Category::all(['id', 'category_name']); // ambil id dan name saja
+        $categories = Category::all(columns: ['id', 'category_name']); // ambil id dan name saja
         return inertia('Admin/MenuProduct/Create', compact('categories'));
     }
 
@@ -50,18 +50,25 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required|exists:categories,id',
         ]);
-        $imagePath = $request->file('image')->store('products', 'public');
+
+        // STORE
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('products'), $imageName);
 
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'link' => $request->link,
             'description' => $request->description,
-            'image' => $imagePath,
+            // cukup simpan relative path langsung dari public/
+            'image' => 'products/' . $imageName,
             'category_id' => $request->category_id,
         ]);
+
+
         return redirect()->route('product.index')->with('message', 'Product created successfully.');
     }
+
 
     public function edit(Product $product)
     {
@@ -85,23 +92,28 @@ class ProductController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-            $product->image = $imagePath;
-        }
-
-        $product->update([
+        $data = [
             'name' => $request->name,
             'price' => $request->price,
             'link' => $request->link,
             'description' => $request->description,
             'category_id' => $request->category_id,
-        ]);
+        ];
+
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('products'), $imageName);
+            $data['image'] = 'products/' . $imageName;
+        }
+
+        $product->update($data);
 
         return redirect()->route('product.index')->with('message', 'Product updated successfully.');
     }
 
-       public function destroy(Product $product){
+
+    public function destroy(Product $product)
+    {
         $product->delete();
         return redirect()->route('product.index')->with('message', 'Category deleted successfully.');
     }

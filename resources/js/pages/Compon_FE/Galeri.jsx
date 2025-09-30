@@ -1,7 +1,7 @@
 
 const Galeri = () => {
   return (
-                <div className="md:grid grid-col bg-gray-900 text-center py-20 md:px-40 bg-white gap-5 md:h-[100vh] h-[100%] w-[100%] ">
+                <div className="md:grid grid-col bg-gray-900 text-center py-20 md:px-8 max-w-[1280px] mx-auto bg-white gap-5 md:max-h-[800px] md:h-[100vh] w-[100%] ">
                     <div className="col-1 h-[100%] w-[100%] bg-gray-200 bg-linear-to-br from-transparent to-white relative rounded-l-lg md:mb-0 mb-5  ">
                             <div className="wrap-bg-gradient h-[100%] w-[100%] bg-[url(/img/box-1.png)] bg-no-repeat bg-contain bg-bottom bg-right text-left p-10  rounded-l-lg hover:bg-gray-300 hover:ease-in ease-in duration-400">
                                 <div className="wrap-text w-[70%]">

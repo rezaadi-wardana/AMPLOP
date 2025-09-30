@@ -39,14 +39,14 @@ export default function Landing() {
     // Use all products since filtering is commented out
     const filteredProducts = products;
 
-      // state untuk kategori terpilih
-        // const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+    // state untuk kategori terpilih
+    // const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
-        // filter produk sesuai kategori
-        // const filteredProducts =
-        //     selectedCategory === null
-        //         ? products
-        //         : products.filter((p) => p.category_id === selectedCategory);
+    // filter produk sesuai kategori
+    // const filteredProducts =
+    //     selectedCategory === null
+    //         ? products
+    //         : products.filter((p) => p.category_id === selectedCategory);
 
     const [scrollY, setScrollY] = useState(0);
 
@@ -67,41 +67,43 @@ export default function Landing() {
             <div className="h-[130px] md:h-[110px]" />
 
             {/* Hero Section */}
-            <section className="grid md:px-40 grid-cols-1 md:grid-cols-2 items-center p-8 bg-[#F9F9F9]">
-                <div>
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7 }}
-                    >
-                        <div className="text-sm bg-yellow-100 px-3 py-1 inline-block rounded-full font-medium mb-2">
-                            ⭐ 50% OFF Summer Super Sale
-                        </div>
-                        <h1 className="text-4xl font-bold mb-3">Sudah Saatnya Digitalisasikan Event Anda</h1>
-                        <p className="text-gray-600 mb-6">
-                            Di era serba digital, Amplop hadir membantu membranding event kepada peserta agar event memiliki kesan sejak peserta mengetahuinya.
-                        </p>
-                        <Link
-                            href="/undangan"
-                            className="inline-block bg-black text-white px-6 py-3 rounded-md text-sm hover:bg-gray-800"
+            <section className="bg-[#F9F9F9] flex justify-center min-h-[400px] md:min-h-[500px] relative overflow-hidden">
+                <div className="wrap-hero grid self-center grid-cols-1 md:grid-cols-2 items-center px-8 py-20 max-w-[1280px]">
+                    <div>
+                        <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7 }}
                         >
-                            Coba Sekarang
-                        </Link>
-                    </motion.div>
-                </div>
-                <div className="relative h-[400px] overflow-hidden flex justify-center mt-8 md:mt-0">
-                    <motion.img loading="lazy" src="/img/hero.png"
-                        alt="Hero"
-                        className="max-w-md"
-                        style={{ y: scrollY * 0.3 }} // parallax efek scroll
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1 }} />
+                            <div className="text-sm bg-yellow-100 px-3 py-1 inline-block rounded-full font-medium mb-2">
+                                ⭐ 50% OFF Summer Super Sale
+                            </div>
+                            <h1 className="text-4xl font-bold mb-3">Sudah Saatnya Digitalisasikan Event Anda</h1>
+                            <p className="text-gray-600 mb-6">
+                                Di era serba digital, Amplop hadir membantu membranding event kepada peserta agar event memiliki kesan sejak peserta mengetahuinya.
+                            </p>
+                            <Link
+                                href="/undangan"
+                                className="inline-block bg-black text-white px-6 py-3 rounded-md text-sm hover:bg-gray-800"
+                            >
+                                Coba Sekarang
+                            </Link>
+                        </motion.div>
+                    </div>
+                    <div className="relative h-[400px] overflow-hidden flex justify-end mt-8 md:mt-0">
+                        <motion.img loading="lazy" src="/img/hero.png"
+                            alt="Hero"
+                            className="max-w-md"
+                            style={{ y: scrollY * 0.3 }} // parallax efek scroll
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1 }} />
+                    </div>
                 </div>
             </section>
 
             {/* Feature Icons */}
-            <div className="flex flex-col md:flex-row justify-around text-center py-20 md:px-40 bg-white gap-6">
+            <div className="flex flex-col md:flex-row justify-between text-center py-20 px-8 max-w-[1280px] mx-auto bg-white gap-6">
                 <div>
                     <div className="text-2xl">  <img loading="lazy" src="/img/konsultasi_gratis.png" alt="Hero" className="mx-auto mb-5 h-20" /></div>
                     <p className="font-bold">Konsultasi Gratis</p>
@@ -123,9 +125,11 @@ export default function Landing() {
             <Galeri />
 
             {/* Product Highlights */}
-            <div className="grid grid-cols-2 md:grid-cols-3 md:gap-6 gap-2 md:px-40 py-12">
+            <div className="flex flex-col md:px-8 px-2 py-20 max-w-[1280px] mx-auto">
+                <h2 className="text-3xl font-bold mb-3">Produk Terbaru</h2>
+                <div className="wrap-product-recent grid grid-cols-2 md:grid-cols-3 md:gap-6 gap-2">
 
-                {/* {[{
+                    {/* {[{
                     title: "Adat Jawa",
                     image: "/img/P1.png",
                     price: "Rp 99.000"
@@ -176,25 +180,27 @@ export default function Landing() {
                         </Link>
                     </motion.div>
                 ))} */}
-                  {(filteredProducts ?? []).map((product: Product) => (
+                    {(filteredProducts ?? [])
+                        .sort((a, b) => b.id - a.id) // urutkan dari id terbesar (terbaru)
+                        .slice(0, 3) // ambil 3 produk teratas
+                        .map((product: Product) => (
+                            <motion.div
+                                key={product.id}
+                                whileHover={{
+                                    scale: 1.03,
+                                    boxShadow: "0 12px 24px rgba(0, 0, 0, 0.1)",
+                                    y: -4,
+                                }}
+                                transition={{
+                                    duration: 0.4,
+                                    ease: "easeInOut"
+                                }}
+                                className="md:bg-[#F9F9F9] md:p-6 py-4 rounded-xl grid hover:bg-white transition-colors duration-300 place-items-center"
+                            >
+                                <h3 className="md:text-lg text-sm place-self-start font-semibold mb-2">Undangan Pernikahan</h3>
+                                <h2 className="md:text-2xl text-lg place-self-start font-bold">{product.name}</h2>
 
-                                    <motion.div
-                                        key={product.id}
-                                        whileHover={{
-                                            scale: 1.03,
-                                            boxShadow: "0 12px 24px rgba(0, 0, 0, 0.1)",
-                                            y: -4,
-                                        }}
-                                        transition={{
-                                            duration: 0.4,
-                                            ease: "easeInOut"
-                                        }}
-                                        className="bg-[#F9F9F9] md:p-6 p-2 rounded-xl grid hover:bg-white transition-colors duration-300 place-items-center"
-                                    >
-                                        <h3 className="text-lg place-self-start font-semibold mb-2">Undangan Pernikahan</h3>
-                                        <h2 className="text-2xl place-self-start font-bold">{product.name}</h2>
-
-                                        {/* {product.originalPrice ? (
+                                {/* {product.originalPrice ? (
                                             <div className="flex items-center flex-wrap">
                                                 <p className="text-sm w-32 flex-auto text-gray-500 line-through decoration-3 tracking-wider my-2 font-medium">{item.originalPrice}</p>
                                                 <div className="text-sm w-32 flex-auto bg-yellow-100 px-3 py-1 inline-block rounded-full font-medium mb-2 text-center">
@@ -202,24 +208,33 @@ export default function Landing() {
                                                 </div>
                                             </div>
                                         ) : ( */}
-                                        <p className="text-sm text-green-600 my-2 font-bold place-self-start">Rp {formatPrice(Number(product.price))}</p>
-                                        {/* )} */}
+                                <p className="text-sm text-green-600 my-2 font-bold place-self-start">Rp {formatPrice(Number(product.price))}</p>
+                                {/* )} */}
 
-                                        <img loading="lazy" src={`storage/${product.image}`} alt={product.name} className="rounded-md md:h-60 h-40 my-4 self-stretch " />
-                                        <a
-                                            href={product.link} target='_blank'
-                                            className="inline-block mx-15 bg-black text-white text-center px-6 py-3 rounded-md text-sm hover:bg-gray-800 transition-all duration-300"
-                                        >
-                                            Preview
-                                        </a>
-                                    </motion.div>
-                                ))}
+                                <img loading="lazy" src={`/${product.image}`} alt={product.name} className="rounded-md md:h-60 h-40 my-4 self-stretch " />
+                                <div className="button flex gap-2  md:px-8 px-4 w-full">
+                                    <a
+                                        href={product.link} target='_blank'
+                                        className="inline-block bg-black text-white text-center md:px-6 px-2 w-full py-3 rounded-md text-sm hover:bg-gray-800 transition-all duration-300"
+                                    >
+                                        Preview
+                                    </a>
+                                    <a
+                                        href="https://wa.me/0898214477" target='_blank'
+                                        className="inline-block md:mx-auto bg-[#FFC107] text-black font-bold text-center md:px-6 px-2 w-full py-3 rounded-md text-sm hover:bg-[#FFA000] transition-all duration-300"
+                                    >
+                                        Order
+                                    </a>
+                                </div>
+                            </motion.div>
+                        ))}
 
-
+                </div>
             </div>
 
             {/* TESTIMONI & SUBSCRIBE */}
-            <div className="flex flex-col md:flex-row justify-between px-10 md:px-40 py-12 bg-gray-200 bg-opacity-50 relative">
+            <div className="bg-gray-200 bg-opacity-50 relative">
+                <div className="wrap-testimoni flex flex-col md:flex-row justify-between px-8 py-20 max-w-[1280px] mx-auto gap-10">
                 {/* Testimoni */}
                 <motion.div initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -255,6 +270,7 @@ export default function Landing() {
                             Subscribe
                         </button>
                     </div>
+                </div>
                 </div>
             </div>
 
