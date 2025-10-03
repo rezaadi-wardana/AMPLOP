@@ -13,6 +13,37 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge"
+import { CheckIcon, AlertCircleIcon, BadgeCheckIcon } from "lucide-react"
+
+const getStatusBadge = (status) => {
+    switch (status) {
+        case "belumbayar":
+            return (
+                <Badge variant="destructive" className="flex items-center gap-1">
+                    <AlertCircleIcon className="h-3 w-3" />
+                    Belum Bayar
+                </Badge>
+            )
+        case "berjalan":
+            return (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                    <BadgeCheckIcon className="h-3 w-3" />
+                    Berjalan
+                </Badge>
+            )
+        case "selesai":
+            return (
+                <Badge variant="default" className="flex items-center gap-1">
+                    <CheckIcon className="h-3 w-3" />
+                    Selesai
+                </Badge>
+            )
+        default:
+            return <Badge variant="outline">Unknown</Badge>
+    }
+}
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -125,7 +156,7 @@ export default function Index() {
                                             </a>
                                         ) : '-'}
                                     </TableCell>
-                                    <TableCell>{order.status}</TableCell>
+                                    <TableCell className='text-center'>{getStatusBadge(order.status)}</TableCell>
                                     <TableCell>
                                         {order.bukti_pembayaran ? (
                                             <img

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Inertia\Inertia;
 
 class OrderController extends Controller
@@ -13,7 +13,6 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with(['product.category'])->latest()->get();
-        // $orders = Order::with(['product'])->latest()->get();
 
         return Inertia::render('Admin/MenuOrder/Index', [
             'orders' => $orders,
@@ -36,13 +35,17 @@ class OrderController extends Controller
             'order_desc' => 'required|string|max:255',
             'product_id' => 'required|exists:products,id',
             'status' => 'required|string|in:belumbayar,berjalan,selesai',
-'link_order' => 'nullable|url',
+            'link_order' => 'nullable|url',
             'bukti_pembayaran' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $buktiPath = $request->file('bukti_pembayaran')
-            ? $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public')
-            : null;
+        $buktiPath = null;
+        if ($request->hasFile('bukti_pembayaran')) {
+            $file = $request->file('bukti_pembayaran');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('bukti_pembayaran'), $filename);
+            $buktiPath = 'bukti_pembayaran/' . $filename;
+        }
 
         Order::create([
             'order_name' => $request->order_name,
@@ -78,21 +81,18 @@ class OrderController extends Controller
             'bukti_pembayaran' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $data = [
-    'order_name' => $request->order_name ?? $order->order_name,
-    'order_desc' => $request->order_desc ?? $order->order_desc,
-    'product_id' => $request->product_id ?? $order->product_id,
-    'status' => $request->status ?? $order->status,
-    'link_order' => $request->link_order ?? $order->link_order,
-];
-
         $data = $request->only(['order_name', 'order_desc', 'product_id', 'status', 'link_order']);
 
         if ($request->hasFile('bukti_pembayaran')) {
-            if ($order->bukti_pembayaran) {
-                Storage::disk('public')->delete($order->bukti_pembayaran);
+            // hapus file lama
+            if ($order->bukti_pembayaran && File::exists(public_path($order->bukti_pembayaran))) {
+                File::delete(public_path($order->bukti_pembayaran));
             }
-            $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+
+            $file = $request->file('bukti_pembayaran');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('bukti_pembayaran'), $filename);
+            $data['bukti_pembayaran'] = 'bukti_pembayaran/' . $filename;
         }
 
         $order->update($data);
@@ -102,8 +102,8 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-        if ($order->bukti_pembayaran) {
-            Storage::disk('public')->delete($order->bukti_pembayaran);
+        if ($order->bukti_pembayaran && File::exists(public_path($order->bukti_pembayaran))) {
+            File::delete(public_path($order->bukti_pembayaran));
         }
 
         $order->delete();
