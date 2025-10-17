@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CekJodohController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HasilJumlahController;
 use App\Http\Controllers\HasilSisaController;
 use App\Http\Controllers\ProductController;
@@ -72,6 +73,7 @@ Route::get('/beranda', function () {
 });
 
 Route::get('/produk', [ProductController::class, 'list'])->name('produk.page');
+Route::get('/produk/specific', [ProductController::class, 'specific'])->name('produk.specific');
 
 
 Route::get('/undangan', function () {
@@ -85,6 +87,7 @@ Route::get('/cekjodoh', function () {
 Route::get('/cekjodohpage', function () {
     return Inertia::render('Cekjodoh');
 });
+
 
 Route::get('/', [ProductController::class, 'landing'])->name('beranda');
 

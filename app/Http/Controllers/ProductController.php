@@ -129,5 +129,39 @@ class ProductController extends Controller
             'categories' => $categories,
         ]);
     }
+    public function specific(Request $request)
+    {
+        $query = Product::query();
+
+        // Filter  Berdasarkan Kategory
+        if ($request->has("category_id") && $request->category_id !== "all") {
+            $query->where("category_id", $request->category_id);
+        }
+
+        if ($request->has(key: 'sort')) {
+            switch ($request->sort) {
+                case 'lowest':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'highest':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'newst':
+                    $query->latest();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        $products = $query->get();
+        $categories = Category::all(['id', 'category_name']);
+
+        return Inertia::render('ProdukSpecific', [
+            'products' => $products,
+            'categories' => $categories,
+            'filters' => $request->only(['category_id', 'sort']),
+        ]);
+    }
     // END FRONT END
 }

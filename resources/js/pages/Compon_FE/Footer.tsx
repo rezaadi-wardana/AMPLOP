@@ -1,7 +1,4 @@
 import {
-    FaFacebookF,
-    FaTwitter,
-    FaLinkedinIn,
     FaInstagram,
     FaWhatsapp,
 } from "react-icons/fa";
@@ -9,13 +6,13 @@ import { MdEmail } from "react-icons/md";
 
 export default function Footer() {
     return (
-        <div className="footer">
+        <div className="footer text-black">
             <div className="wrap bg-white">
                 <div className="px-8 py-20 max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
                     {/* Brand */}
                     <div className="col-span-2">
                         <div className="flex items-center gap-2">
-                            <img loading="lazy" src="img/amplop.png" alt="Logo" className="h-10" />
+                            <img loading="lazy" src="/img/amplop.png" alt="Logo" className="h-10 mb-4"  />
                             {/* <span className="text-xl font-bold">BRAND</span> */}
                         </div>
                         <p className="text-sm leading-relaxed">
@@ -61,9 +58,9 @@ export default function Footer() {
                 </div>
             </div>
             {/* COPYRIGHT + SOCIAL MEDIA */}
-            <div className="wrap bg-gray-100 flex justify-center border-t text-gray-600 text-xs ">
+            <div className="wrap bg-gray-100 flex justify-center border-t text-gray-700 text-xs ">
                 <div className="flex flex-row justify-between items-center px-8 max-w-[1280px] w-full py-4">
-                    <p>© 2015 Brand. All Rights Reserved.</p>
+                    <p>© 2025 Amplop. All Rights Reserved.</p>
                     <div className="flex gap-3 mt-2 md:mt-0">
                         {/* <a href="#" className="text-grey-500 hover:text-grey-700 ">
                         <FaFacebookF className="h-8 w-8" />
@@ -74,13 +71,13 @@ export default function Footer() {
                     <a href="#" className="text-grey-500 hover:text-grey-700 ">
                         <FaLinkedinIn className="h-8 w-8" />
                     </a> */}
-                        <a href="https://www.instagram.com/amplop.digital" className="text-grey-500 hover:text-grey-700 ">
+                        <a href="https://www.instagram.com/amplop.digital" className="text-gray-900 hover:text-grey-700 ">
                             <FaInstagram className="h-8 w-8" />
                         </a>
-                        <a href="mailto:boon.image.design@gmail.com" className="text-grey-500 hover:text-grey-700 ">
+                        <a href="mailto:boon.image.design@gmail.com" className="text-gray-900 hover:text-grey-700 ">
                             <MdEmail className="h-8 w-8" />
                         </a>
-                        <a href="https://wa.me/0898214477" className="text-grey-500 hover:text-grey-700 ">
+                        <a href="https://wa.me/0898214477" className="text-gray-900 hover:text-grey-700 ">
                             <FaWhatsapp className="h-8 w-8" />
                         </a>
                     </div>
